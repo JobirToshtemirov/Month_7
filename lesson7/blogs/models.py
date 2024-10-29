@@ -24,5 +24,8 @@ class BlogModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
     def __str__(self):
         return self.title

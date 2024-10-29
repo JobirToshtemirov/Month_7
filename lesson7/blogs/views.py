@@ -11,7 +11,7 @@ class StandardResultsSetPagination(PageNumberPagination):
     max_page_size = 100
 
 
-class BlogListView(generics.ListAPIView):
+class BlogListCreateView(generics.ListCreateAPIView):
     queryset = BlogModel.objects.all()
     serializer_class = BlogSerializer
     pagination_class = StandardResultsSetPagination
@@ -38,6 +38,11 @@ class UserListView(generics.ListAPIView):
     queryset = UserModel.objects.all()
     serializer_class = UserSerializer
     pagination_class = StandardResultsSetPagination
+
+
+class UserCreateView(generics.CreateAPIView):
+    queryset =  UserModel.objects.all()
+    serializer_class = UserSerializer
 
 
 class UserDetailView(generics.RetrieveAPIView):
