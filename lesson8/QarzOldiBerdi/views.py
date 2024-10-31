@@ -1,5 +1,5 @@
 from django.contrib.auth import login
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, status
 from .models import CustomUser, Debt
 from .serializers import UserSerializer, DebtSerializer, UserLoginSerializer
 from rest_framework.response import Response

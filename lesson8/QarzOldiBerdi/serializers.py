@@ -11,7 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = CustomUser(**validated_data)
-        user.set_password(validated_data['password'])  # Parolni kriptolash
+        user.set_password(validated_data['password'])
         user.save()
         return user
 
@@ -25,6 +25,7 @@ class UserLoginSerializer(serializers.Serializer):
         if user is None:
             raise serializers.ValidationError('Invalid Credentials')
         return user
+
 
 class DebtSerializer(serializers.ModelSerializer):
     class Meta:
