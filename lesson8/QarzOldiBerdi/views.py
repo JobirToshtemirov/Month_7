@@ -31,11 +31,18 @@ class DebtListView(generics.ListAPIView):
         return Debt.objects.filter(borrower=user)
 
 
+# def all_debts(request):
+#     data = Debt.objects.all()
+#     serial = DebtSerializer
+#     return Response(data=serial, status=status.HTTP_200_OK)
+
+
 class CreateDebtView(generics.CreateAPIView):
+    model = Debt
     serializer_class = DebtSerializer
 
-    def perform_create(self, serializer):
-        serializer.save(borrower=self.request.user)
+    # def perform_create(self, serializer):
+    #     serializer.save(Debt.borrower)
 
 
 @api_view(['POST'])

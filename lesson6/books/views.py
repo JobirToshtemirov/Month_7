@@ -17,7 +17,6 @@ class BookListView(generics.ListAPIView):
     serializer_class = BookSerializer
     pagination_class = StandardResultsSetPagination
 
-
 class BookDetailView(generics.RetrieveAPIView):
     queryset = BookModel.objects.all()
     serializer_class = BookSerializer
