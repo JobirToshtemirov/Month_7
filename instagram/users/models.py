@@ -33,10 +33,10 @@ class UserModel(AbstractUser, BaseModel):
     )
     user_roles = models.CharField(max_length=30, choices=USER_ROLES, default=ORDINARY_USER)
     auth_type = models.CharField(max_length=30, choices=AUTH_TYPE_CHOICES)
-    user_status = models.CharField(max_length=30, choices=AUTH_STATUS, default=NEW)
+    auth_status = models.CharField(max_length=30, choices=AUTH_STATUS, default=NEW)
     email = models.EmailField(null=True, blank=True, unique=True)
     phone_number = models.CharField(max_length=13, blank=True, unique=True)
-    photo = models.ImageField(upload_to='user_photos/', blank=True, validatorsd=[
+    photo = models.ImageField(upload_to='user_photos/', blank=True, validators=[
         FileExtensionValidator(allowed_extensions=['jpeg', 'jpg', 'heic', 'heif', 'png'])])
 
     def __str__(self):
@@ -78,7 +78,23 @@ class UserModel(AbstractUser, BaseModel):
             self.set_password(self.password)
 
     def token(self):
-        refresh = RefreshToken
+        refresh = RefreshToken.for_user(self)
+        return {
+            'access': str(refresh.access_token),
+            'refresh_token': str(refresh)
+        }
+
+    def clean(self):
+        self.check_email()
+        self.check_password()
+        self.check_password()
+        self.hash_password()
+        
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.clean()
+        super(UserModel, self).save(*args, **kwargs)
+
 
 
 
