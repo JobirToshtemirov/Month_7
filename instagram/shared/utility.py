@@ -91,6 +91,9 @@ def send_phone_code(phone, code):
     client = Client(account_sid, auth_token)
     client.messages.create(
         body=f"Salom do'stim! Sizning tasdiqlash kodingiz: {code}\n",
-        from_="+998990330952",
+        from_="+13854744144▲",
         to=f"{phone}"
     )
+
+
+
