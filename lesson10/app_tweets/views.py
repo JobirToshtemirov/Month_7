@@ -5,6 +5,7 @@ from rest_framework.response import Response
 
 from .models import TweetModel
 from .serializers import TweetSerializer
+from serializers import FollowerSerializer
 
 
 class TweetPaginationView(PageNumberPagination):
@@ -62,3 +63,13 @@ class AllTweetView(generics.ListAPIView):
         tweets = self.get_queryset()
         serializer = self.get_serializer(tweets, many=True)
         return Response(serializer.data)
+
+
+class FollowersView(generics.ListAPIView):
+    serializer_class = FollowerSerializer
+    pagination_class = PageNumberPagination
+    permission_classes = [IsAuthenticated]
+
+
+    def post(self):
+        pass
